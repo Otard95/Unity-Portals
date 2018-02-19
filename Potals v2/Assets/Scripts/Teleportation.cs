@@ -20,10 +20,10 @@ public class Teleportation : MonoBehaviour {
 		float dot = Vector3.Dot(transform.forward, portal_to_player);
 
 		// if player entered from back but has passed to the other side reset the flag
-		if (_entered_from_back && dot > 0) _entered_from_back = false;
+		if (_entered_from_back && dot < 0) _entered_from_back = false;
 
 		// if player actually passed the teleport trigger. (did not enter from back)
-		if (_entered_from_back ||  dot > 0f) return;
+		if (_entered_from_back ||  dot < 0f) return;
 		
 		// Calculate the rotation between portlas and the axis to rotate around
 		float rel_rot = 180 - Vector3.Angle(target.forward, transform.forward);
@@ -62,7 +62,7 @@ public class Teleportation : MonoBehaviour {
 			Vector3 portal_to_player = _player.position - transform.position;
 			float dot = Vector3.Dot(transform.forward, portal_to_player);
 
-			_entered_from_back = (dot < 0f);
+			_entered_from_back = (dot > 0f);
 
 		}
 
