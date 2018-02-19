@@ -6,9 +6,17 @@ public class PortalCam : MonoBehaviour {
 	public Transform playerCamera;
 	public Transform portal;
 	public Transform otherPortal;
-	
+
+	Camera cam;
+
+	void Start () {
+		cam = GetComponent<Camera>();
+	}
+
 	// Update is called once per frame
 	void LateUpdate () {
+
+		cam.Render();
 
 		// Get player pos relative to other portal
 		Vector3 player_portal_offset = playerCamera.position - otherPortal.position;
