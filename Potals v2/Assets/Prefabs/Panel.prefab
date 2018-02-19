@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4776560566134146}
   - component: {fileID: 33585103831562320}
   - component: {fileID: 23396587809835344}
+  - component: {fileID: 65423837071670674}
   m_Layer: 0
   m_Name: Panel
-  m_TagString: Untagged
+  m_TagString: Portalable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668804873342274}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 2, z: 0.05000019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +83,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668804873342274}
   m_Mesh: {fileID: 4300000, guid: 99d76e8e498648943b4fc35d1f667b70, type: 2}
+--- !u!65 &65423837071670674
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668804873342274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 2, z: 0.05}
+  m_Center: {x: 0.5, y: 1, z: -0.025}
