@@ -11,6 +11,7 @@ public class PlayerLook : MonoBehaviour {
 	Rigidbody _rb;
 
 	void Start () {
+		Cursor.lockState = CursorLockMode.Locked;
 		_rb = GetComponent<Rigidbody>();
 	}
 	
