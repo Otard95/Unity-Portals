@@ -38,20 +38,32 @@ public class PortalManager : MonoBehaviour {
 	[SerializeField]
 	Transform portalB;
 	[SerializeField]
+	string cameraAIgnoreLayer;
+	[SerializeField]
+	string cameraBIgnoreLayer;
+	[SerializeField]
 	float offset = 0.001f;
 
 	#endregion
 
-	Collider _portalableA = null;
-	Collider _portalableB = null;
+	int camAIgnore;
+	int camBIgnore;
+	PortalSurface _portalableA;
+	PortalSurface _portalableB;
+
+	void Start () {
+		camAIgnore = LayerMask.NameToLayer(cameraAIgnoreLayer);
+		camBIgnore = LayerMask.NameToLayer(cameraBIgnoreLayer);
+	}
 
 	public void PlaceA (RaycastHit ray_hit) {
 
 		// place portalA
 		if (ray_hit.collider.CompareTag("Portalable")) {
-			//Fix colliders
-			SwapPortalable(_portalableA, ray_hit.collider);
-			_portalableA = ray_hit.collider;
+			//Fix colliders and layermask
+			PortalSurface new_portalable = new PortalSurface(ray_hit.transform.gameObject, ray_hit.collider, ray_hit.transform.gameObject.layer);
+			SwapPortalable(_portalableA, new_portalable, camAIgnore);
+			_portalableA = new_portalable;
 			// Get portals new position and roation
 			// Temp fix
 			Vector3 off = ray_hit.transform.up + ray_hit.transform.right / 2;
@@ -68,8 +80,9 @@ public class PortalManager : MonoBehaviour {
 		// place portalA
 		if (ray_hit.collider.CompareTag("Portalable")) {
 			//Fix colliders
-			SwapPortalable(_portalableB, ray_hit.collider);
-			_portalableB = ray_hit.collider;
+			PortalSurface new_portalable = new PortalSurface(ray_hit.transform.gameObject, ray_hit.collider, ray_hit.transform.gameObject.layer);
+			SwapPortalable(_portalableB, new_portalable, camBIgnore);
+			_portalableB = new_portalable;
 			// Get portals new position and roation
 			// Temp fix
 			Vector3 off = ray_hit.transform.up + ray_hit.transform.right / 2;
@@ -88,14 +101,30 @@ public class PortalManager : MonoBehaviour {
 
 	}
 
-	void SwapPortalable (Collider oldPortalable, Collider newPortalable) {
+	void SwapPortalable (PortalSurface oldPortalable, PortalSurface newPortalable, int mask) {
 
-		if (oldPortalable != null) {
-			oldPortalable.GetComponent<Collider>().enabled = true;
+		if (oldPortalable.collider != null) {
+			oldPortalable.collider.enabled = true;
+			oldPortalable.gameObject.layer = oldPortalable.layerMask;
 		}
 
-		newPortalable.GetComponent<Collider>().enabled = false;
+		newPortalable.collider.enabled = false;
+		newPortalable.gameObject.layer = mask;
 
+	}
+
+}
+
+public struct PortalSurface {
+
+	public GameObject gameObject;
+	public Collider collider;
+	public int layerMask;
+
+	public PortalSurface (GameObject obj, Collider col, int mask) {
+		gameObject = obj;
+		collider = col;
+		layerMask = mask;
 	}
 
 }
